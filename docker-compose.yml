@@ -14,7 +14,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - ./data:/var/tmp
+      - ./data:/var/tmp:delegated
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

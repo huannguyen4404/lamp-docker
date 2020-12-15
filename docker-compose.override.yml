@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  web:
+  php73_apache:
     build:
       context: .
       dockerfile: docker/Dockerfile_73
@@ -9,9 +9,10 @@ services:
       - ./docker/apache/apache2.conf:/etc/apache2/apache2.conf
       - ./docker/apache/default.conf:/etc/apache2/sites-available/000-default.conf
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./src:/var/www/html/
+      - ./src:/var/www/html/:delegated
     ports:
       - 80:80
     depends_on:
       - db
-      - redis
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1 //-1 means unlimited
