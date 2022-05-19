@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  php73_apache:
+    build:
+      context: .
+      dockerfile: apache/Dockerfile_73
+    volumes:
+      - ./apache/apache2.conf:/etc/apache2/apache2.conf:cached
+      - ./apache/default.conf:/etc/apache2/sites-available/000-default.conf:cached
+      - ./php/php.ini:/usr/local/etc/php/php.ini:cached
+      - ../../h2btv:/var/www/html/:cached
+      # - ../src:/var/www/html/:delegated
+    ports:
+      - 80:80
+    depends_on:
+      - db
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1 //-1 means unlimited
